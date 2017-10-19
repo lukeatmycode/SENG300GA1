@@ -16,6 +16,7 @@ public class CoinSlotListenerDevice implements CoinSlotListener {
 		disabled = slot.isDisabled();
 		value = 0;	
 	}
+	
 	/**
      * Announces that the indicated hardware has been enabled.
      * 
@@ -37,7 +38,7 @@ public class CoinSlotListenerDevice implements CoinSlotListener {
      */
 	@Override
 	public void disabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		hardware.disable();
+		hardware.disable(); // won't this cause a stack overflow? hardware.disable() calls notifyDisabled() which calls this method
 		hardware.notify();
 		
 	}
@@ -52,9 +53,12 @@ public class CoinSlotListenerDevice implements CoinSlotListener {
 
 	@Override
 	public void coinRejected(CoinSlot slot, Coin coin) {
-		// TODO Auto-generated method stub
+		// coins get returned 
 		
 	}
 
+	public int getValue(){
+		return value;
+	}
 	
 }
