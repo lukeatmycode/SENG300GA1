@@ -9,11 +9,9 @@ import org.lsmr.vending.hardware.CoinSlotListener;
 public class CoinSlotListenerDevice implements CoinSlotListener {
 
 	private int value = 0;
-	private boolean disabled = false;
 	
 	public CoinSlotListenerDevice(CoinSlot slot) {
 		slot.register(this);
-		disabled = slot.isDisabled();
 		value = 0;	
 	}
 	
@@ -39,22 +37,41 @@ public class CoinSlotListenerDevice implements CoinSlotListener {
 		// Do nothing for now
 	}
 
+	/**
+	 * Updates value to track the amount of money inserted so far
+	 */
 	@Override
 	public void validCoinInserted(CoinSlot slot, Coin coin) {
-		if (!disabled) {
-			value = value + coin.getValue();
+		if (!slot.isDisabled()) {
+			value += coin.getValue();
 		}
 		
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void coinRejected(CoinSlot slot, Coin coin) {
-		// coins get returned 
+		// TODO coins get returned, or do nothing for now? Since "Mr. Client" isn't worried about dispensing change yet
 		
 	}
 
-	public int getValue(){
+	public int getValue() {
 		return value;
+	}
+	
+	/**
+	 * A setter method for value. Should be called when pop is dispensed to model the payment.
+	 * 
+	 */
+	public void payForItem(int amount) {
+		if (amount >= 0 && amount <= value) {
+			value -= amount;
+		}
+		else {
+			// TODO could create a custom exception or just have it do nothing. Thoughts?
+		}
 	}
 	
 }
