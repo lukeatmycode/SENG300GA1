@@ -25,9 +25,7 @@ public class CoinSlotListenerDevice implements CoinSlotListener {
      */
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		hardware.enable();
-		hardware.notify();
-		
+		// Do nothing for now
 	}
 
 	/**
@@ -38,9 +36,7 @@ public class CoinSlotListenerDevice implements CoinSlotListener {
      */
 	@Override
 	public void disabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		hardware.disable(); // won't this cause a stack overflow? hardware.disable() calls notifyDisabled() which calls this method
-		hardware.notify();
-		
+		// Do nothing for now
 	}
 
 	@Override
