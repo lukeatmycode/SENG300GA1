@@ -7,7 +7,7 @@ public class ButtonListenerDevice implements SelectionButtonListener {
 	
 	private VendingMachine vending;
 	
-	public SelectionButtonListener(VendingMachine vend) {
+	public ButtonListenerDevice(VendingMachine vend) {
 		this.vending = vend;
 		for (int i = 0; i < vend.getNumberOfSelectionButtons(); i++) {
 			vend.getSelectionButton(i).register(this);
@@ -44,6 +44,7 @@ public class ButtonListenerDevice implements SelectionButtonListener {
 				return i;
 			}
 		}
+		return -1;
 	}
 
 }
