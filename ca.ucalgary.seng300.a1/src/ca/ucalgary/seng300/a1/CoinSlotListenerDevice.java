@@ -113,12 +113,20 @@ public class CoinSlotListenerDevice implements CoinSlotListener, SelectionButton
 		int index = findButtonIndex(button);
 		int cost = vending.getPopKindCost(index);
 		
-		if (value >= cost) {
+		
+		if(index == -1){
+			//Added by Cynthia
+			//Pressed illegal button. What should be done?
+		}
+		else if (value >= cost) {
 			payForItem(cost);
 			//dispense the pop and deduct the cost from value
 		}
 		else {
 			// Do nothing for now
+			
+			//Added by Cynthia
+			//What about report not enough coins and choose to return the inserted coins or continue inserting coin?
 		}
 		
 	}
