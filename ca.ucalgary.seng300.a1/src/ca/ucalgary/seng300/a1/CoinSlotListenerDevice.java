@@ -8,11 +8,19 @@ public class CoinSlotListenerDevice implements CoinSlotListener, SelectionButton
 	private int value = 0;
 	private VendingMachine vending;
 	
+	/**
+	 * Constructor used for testing purposes
+	 * @param slot The CoinSlot being used for testing
+	 */
 	public CoinSlotListenerDevice(CoinSlot slot) {
 		slot.register(this);
 		value = 0;	
 	}
-	
+	 
+	/**
+	 * Constructor used for testing purposes
+	 * @param button the SelectionButton being used for testing
+	 */
 	public CoinSlotListenerDevice(SelectionButton button) {
 		button.register(this);
 	}
@@ -60,36 +68,45 @@ public class CoinSlotListenerDevice implements CoinSlotListener, SelectionButton
 	public void validCoinInserted(CoinSlot slot, Coin coin) {
 		if (!slot.isDisabled()) {
 			value += coin.getValue();
-		}
+		}	
+	}
+
+	/**
+	 * Handles the return of invalid coins
+	 */
+	@Override
+	public void coinRejected(CoinSlot slot, Coin coin) {
+		// Do nothing for now
 		
 	}
 
 	/**
-	 * 
+	 * Getter method for value - the amount of valid money in the machine
+	 * @return value 
 	 */
-	@Override
-	public void coinRejected(CoinSlot slot, Coin coin) {
-		// TODO coins get returned, or do nothing for now? Since "Mr. Client" isn't worried about dispensing change yet
-		
-	}
-
 	public int getValue() {
 		return value;
 	}
 	
 	/**
 	 * A setter method for value. Should be called when pop is dispensed to model the payment.
-	 * 
+	 * Will only deduct money if there is enough money in the machine.
+	 * @param amount of money to deduct as payment 
 	 */
 	public void payForItem(int amount) {
 		if (amount >= 0 && amount <= value) {
 			value -= amount;
 		}
 		else {
-			// TODO could create a custom exception or just have it do nothing. Thoughts?
+			// do nothing for now
 		}
 	}
 
+	/**
+	 * Handles the pop vending decision associated with a press of a 
+	 * SelectionButton.
+	 * @param SelectionButton the button that got pressed
+	 */
 	@Override
 	public void pressed(SelectionButton button) {
 		// TODO Auto-generated method stub
@@ -101,7 +118,7 @@ public class CoinSlotListenerDevice implements CoinSlotListener, SelectionButton
 			//dispense the pop and deduct the cost from value
 		}
 		else {
-			// Probably print error message to display in future assignment?
+			// Do nothing for now
 		}
 		
 	}
