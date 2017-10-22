@@ -23,6 +23,11 @@ public class A1Tests {
 
 	@Before
 	public void setUp() throws Exception {
+		int selectionButtonCount = 3;
+		java.util.List<String> popCanNames = Arrays.asList("Cola","Sprite","Fonda");
+		java.util.List<Integer> popCanCosts = Arrays.asList(1,2,3);
+		vend = new VendingMachine(new int[] {1}, selectionButtonCount, 100, 100, 100);
+		vend.configure(popCanNames, popCanCosts);
 		slot = new CoinSlot(new int[] {1});
 		listener1 = new CoinSlotListenerDevice(slot);
 		listener2 = new CoinSlotListenerDevice(slot);
