@@ -1,3 +1,15 @@
+/**
+ * SENG300 Group Assignment 1
+ * Group 2:
+ * Stephen Pollo
+ * Luke Kissick
+ * Xi Wang
+ * Emilie Guidos
+ * 
+ * Test Suite for the vending machine's new CoinSlot and 
+ * SelectionButton listener class
+ */
+
 package ca.ucalgary.seng300.a1.test;
 
 import org.lsmr.vending.*;
@@ -37,7 +49,6 @@ public class A1Tests {
 		java.util.List<Integer> popCanCosts = Arrays.asList(250,250,250,250,250,250);
 		
 		vend = new VendingMachine(coinValues, selectionButtonCount, coinRackCapacity, popCanRackCapacity, receptacleCapacity);
-
 		vend.configure(popCanNames, popCanCosts);
 		
 		for(int i = 0; i < popCanLoading.length; i++) {
@@ -51,6 +62,13 @@ public class A1Tests {
 		
 	}
 
+	/**
+	 * Tests the insertion of a valid coin
+	 * Input - valid coin (25 cents)
+	 * Expected output - 25
+	 * 
+	 * @throws DisabledException
+	 */
 	@Test
 	public void testGetValue() throws DisabledException {
 		slot.addCoin(new Coin(25));
@@ -58,7 +76,24 @@ public class A1Tests {
 
 	}
 	
+	/**
+	 * Tests the insertion of an invalid coin
+	 * Input - invalid coin (7 cents)
+	 * Expected output - 0
+	 * 
+	 * @throws DisabledException
+	 */
+	@Test
+	public void testInvalidCoin() throws DisabledException {
+		slot.addCoin(new Coin(7));
+		assertEquals(0,listener.getValue());
+
+	}
 	
+	/**
+	 * 
+	 * @throws DisabledException
+	 */
 	@Test
 	public void testPressButtonWhenCoinsEnough() throws DisabledException {
 		slot.addCoin(new Coin(200));
@@ -74,14 +109,30 @@ public class A1Tests {
 		assertEquals(9, vend.getPopCanRack(0).size());
 	}
 	
+	/**
+	 * Verifies that when a button is pressed but there are insufficient funds in the
+	 * machine that no pop is dispensed and no money has been deducted.
+	 * 
+	 * @throws DisabledException
+	 */
 	//NOTE: This test does not yet work (Does not test for right things yet)
 	@Test
 	public void testPressButtonWhenCoinsNotEnough() throws DisabledException {
 		slot.addCoin(new Coin(25));
 		button = vend.getSelectionButton(0);
 		listener.pressed(button);
+		Deliverable [] vendedItems = vend.getDeliveryChute().removeItems();
+		boolean thrown = false;
+		try {
+			vendedItems[0].getClass();
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
+			thrown = true;
+		}
+		
 		assertEquals(25,listener.getValue());
-
+		assertEquals(10, vend.getPopCanRack(0).size());
+		assertEquals(true, thrown);
 	}
 
 }
