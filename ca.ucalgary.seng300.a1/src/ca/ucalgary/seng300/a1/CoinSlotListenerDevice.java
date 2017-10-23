@@ -109,24 +109,27 @@ public class CoinSlotListenerDevice implements CoinSlotListener, SelectionButton
 	 */
 	@Override
 	public void pressed(SelectionButton button) {
-		// TODO Auto-generated method stub
 		int index = findButtonIndex(button);
 		int cost = vending.getPopKindCost(index);
 		
 		
 		if(index == -1){
-			//Added by Cynthia
-			//Pressed illegal button. What should be done?
+			// Do nothing for now
 		}
 		else if (value >= cost) {
+			try {
+				vending.getPopCanRack(index).dispensePopCan();
+			} catch (DisabledException | EmptyException | CapacityExceededException e) {
+				e.printStackTrace();
+			}
 			payForItem(cost);
-			//dispense the pop and deduct the cost from value
 		}
 		else {
 			// Do nothing for now
 			
 			//Added by Cynthia
 			//What about report not enough coins and choose to return the inserted coins or continue inserting coin?
+			// These are likely going to be in the future assignments 
 		}
 		
 	}
