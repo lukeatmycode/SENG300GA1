@@ -26,6 +26,7 @@ public class A1Tests {
 
 	@Before
 	public void setUp() throws Exception {
+
 		int selectionButtonCount = 6;
 		int coinRackCapacity = 15;
 		int popCanRackCapacity = 10;
@@ -35,6 +36,7 @@ public class A1Tests {
 		java.util.List<Integer> popCanCosts = Arrays.asList(250,250,250,250,250,250);
 		
 		vend = new VendingMachine(coinValues, selectionButtonCount, coinRackCapacity, popCanRackCapacity, receptacleCapacity);
+
 		vend.configure(popCanNames, popCanCosts);
 		slot = vend.getCoinSlot();
 		
@@ -46,6 +48,7 @@ public class A1Tests {
 	public void testGetValue() throws DisabledException {
 		slot.addCoin(new Coin(25));
 		assertEquals(25,listener.getValue());
+
 	}
 	
 	
@@ -60,6 +63,7 @@ public class A1Tests {
 		listener.pressed(button);
 		assertEquals(0,listener.getValue()); //Product should have vended and value subtracted
 		//TO ADD: Assertion that product has been vended?
+
 	}
 	
 	//NOTE: This test does not yet work (Does not test for right things yet)
@@ -68,6 +72,7 @@ public class A1Tests {
 		button = vend.getSelectionButton(0);
 		listener.pressed(button);
 		assertEquals(0,listener.getValue());
+
 	}
 
 }
