@@ -1,3 +1,15 @@
+/**
+ * SENG300 Group Assignment 1
+ * Group 2:
+ * Stephen Pollo
+ * Luke Kissick
+ * Xi Wang
+ * Emilie Guidos
+ * 
+ * Listener class for the CoinSlot and SelectionButton hardware devices in the 
+ * VendingMachine project. 
+ */
+
 package ca.ucalgary.seng300.a1;
 
 import org.lsmr.vending.*;
