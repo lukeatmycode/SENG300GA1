@@ -121,6 +121,7 @@ public class CoinSlotListenerDevice implements CoinSlotListener, SelectionButton
 				vending.getPopCanRack(index).dispensePopCan();
 			} catch (DisabledException | EmptyException | CapacityExceededException e) {
 				e.printStackTrace();
+				return; // For now. This will probably be changed in future assignments
 			}
 			payForItem(cost);
 		}
