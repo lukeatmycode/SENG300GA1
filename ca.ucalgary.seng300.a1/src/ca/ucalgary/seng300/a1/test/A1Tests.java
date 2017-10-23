@@ -61,24 +61,26 @@ public class A1Tests {
 	
 	@Test
 	public void testPressButtonWhenCoinsEnough() throws DisabledException {
-		Coin toonie = new Coin(200);
-		Coin quarter = new Coin(25);
-		slot.addCoin(toonie);
-		slot.addCoin(quarter);
-		slot.addCoin(quarter);
+		slot.addCoin(new Coin(200));
+		slot.addCoin(new Coin(25));
+		slot.addCoin(new Coin(25));
 		button = vend.getSelectionButton(0);
 		listener.pressed(button);
-		assertEquals(0,listener.getValue()); //Product should have vended and value subtracted
-		//TO ADD: Assertion that product has been vended?
-
+		Deliverable [] vendedItems = vend.getDeliveryChute().removeItems();
+		
+		//Product should have vended and value subtracted
+		assertEquals(0,listener.getValue()); 
+		assertEquals(PopCan.class, vendedItems[0].getClass());
+		assertEquals(9, vend.getPopCanRack(0).size());
 	}
 	
 	//NOTE: This test does not yet work (Does not test for right things yet)
 	@Test
-	public void testPressButtonWhenCoinsNotEnough() {
+	public void testPressButtonWhenCoinsNotEnough() throws DisabledException {
+		slot.addCoin(new Coin(25));
 		button = vend.getSelectionButton(0);
 		listener.pressed(button);
-		assertEquals(0,listener.getValue());
+		assertEquals(25,listener.getValue());
 
 	}
 
