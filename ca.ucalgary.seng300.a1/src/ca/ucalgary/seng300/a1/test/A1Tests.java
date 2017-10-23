@@ -32,12 +32,19 @@ public class A1Tests {
 		int popCanRackCapacity = 10;
 		int receptacleCapacity = 200;
 		int [] coinValues = {5, 10, 25, 100, 200};
+		int [] popCanLoading = new int[selectionButtonCount];
 		java.util.List<String> popCanNames = Arrays.asList("Cola","Sprite","Fonda","Diet","GingerAle","DrPepper");
 		java.util.List<Integer> popCanCosts = Arrays.asList(250,250,250,250,250,250);
 		
 		vend = new VendingMachine(coinValues, selectionButtonCount, coinRackCapacity, popCanRackCapacity, receptacleCapacity);
 
 		vend.configure(popCanNames, popCanCosts);
+		
+		for(int i = 0; i < popCanLoading.length; i++) {
+			popCanLoading[i] = popCanRackCapacity;
+		}
+		vend.loadPopCans(popCanLoading);
+		
 		slot = vend.getCoinSlot();
 		
 		listener = new CoinSlotListenerDevice(vend);
