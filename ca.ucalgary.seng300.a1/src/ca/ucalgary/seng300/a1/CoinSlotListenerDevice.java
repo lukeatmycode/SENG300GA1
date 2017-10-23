@@ -93,7 +93,7 @@ public class CoinSlotListenerDevice implements CoinSlotListener, SelectionButton
 	 * Will only deduct money if there is enough money in the machine.
 	 * @param amount of money to deduct as payment 
 	 */
-	public void payForItem(int amount) {
+	private void payForItem(int amount) {
 		if (amount >= 0 && amount <= value) {
 			value -= amount;
 		}
@@ -115,6 +115,7 @@ public class CoinSlotListenerDevice implements CoinSlotListener, SelectionButton
 		
 		if(index == -1){
 			// Do nothing for now
+			// Should not happen using the VendingMachine methods for pushing buttons
 		}
 		else if (value >= cost) {
 			try {
